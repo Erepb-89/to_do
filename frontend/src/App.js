@@ -1,4 +1,6 @@
 import React from 'react';
+import Menu from './components/Menu'
+import Footer from './components/Footer'
 import './App.css';
 import styles from './App.css';
 import UsersList from './components/User.js'
@@ -26,21 +28,10 @@ class App extends React.Component {
 
     render() {
         return (
-
             <div className="App Site">
                 <div className="Site-content">
                     <div className="App-header">
-                        <menu>
-                            {/*<button>На главную</button>*/}
-                            {/*<button>Пользователи</button>*/}
-                            {/*<button>Список дел</button>*/}
-                            <ul className="menu">
-                                <li><a href="#">Главная</a></li>
-                                <li><a href="#">Пользователи</a>
-                                </li>
-                                <li><a href="#">Контакты</a></li>
-                            </ul>
-                        </menu>
+                        <Menu/>
                     </div>
                     <div className="main">
                         <content>
@@ -52,12 +43,9 @@ class App extends React.Component {
                     </div>
                 </div>
                 <footer className={"App-footer"}>
-                    <p>Все права защищены &copy;&nbsp;2020 <a href="https://geekbrains.ru"
-                                                              target="_blank">Geekbrains</a>
-                    </p>
+                    <Footer/>)
                 </footer>
             </div>
-
         )
     }
 }
