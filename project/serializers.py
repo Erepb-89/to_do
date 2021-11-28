@@ -18,4 +18,3 @@ class ToDoModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = ToDo
         fields = '__all__'
-
