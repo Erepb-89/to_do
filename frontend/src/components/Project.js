@@ -1,5 +1,4 @@
 import React from 'react'
-import UsersList from "./User";
 import {Link} from "react-router-dom";
 
 

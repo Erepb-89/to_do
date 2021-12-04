@@ -24,8 +24,21 @@
     background: #f8f8f8;
 }
 
+.Text-user {
+    font-size: 20px;
+    color: #f8f8f8;
+}
+
+.LoginForm {
+    padding: 15px;
+}
+
+.InputLogin {
+    font-size: 18px;
+}
+
 .App-header {
-    height: 80px;
+    height: 130px;
     position: relative;
     background-color: #857895;
 }
