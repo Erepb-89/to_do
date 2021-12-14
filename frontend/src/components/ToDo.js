@@ -29,6 +29,7 @@ const ToDoItem = ({todo}) => {
 const ToDoList = ({todos}) => {
     return (
         <table>
+            <caption className={"CaptionTable"}>ToDo</caption>
             <th>
                 Project
             </th>

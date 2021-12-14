@@ -14,9 +14,10 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
 
 
 class ProjectParamFilterViewSet(ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
+
     # pagination_class = ProjectLimitOffsetPagination
 
     def get_queryset(self):
@@ -32,9 +33,10 @@ class ToDoLimitOffsetPagination(LimitOffsetPagination):
 
 
 class ToDoParamFilterViewSet(ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
+
     # pagination_class = ToDoLimitOffsetPagination
 
     def get_queryset(self):

@@ -16,6 +16,7 @@ const ProjectItem = ({project}) => {
 const ProjectList = ({projects}) => {
     return (
         <table>
+            <caption className={"CaptionTable"}>Projects</caption>
             <th>
                 Project name
             </th>

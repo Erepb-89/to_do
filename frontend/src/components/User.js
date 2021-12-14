@@ -17,6 +17,7 @@ const UserItem = ({user}) => {
 const UsersList = ({users}) => {
     return (
         <table>
+            <caption className={"CaptionTable"}>Users</caption>
             <thead>
             <th>Username</th>
             <th>First name</th>

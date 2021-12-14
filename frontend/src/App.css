@@ -37,6 +37,11 @@
     font-size: 18px;
 }
 
+.CaptionTable {
+    font-size: 18px;
+    font-style: italic;
+}
+
 .App-header {
     height: 130px;
     position: relative;
