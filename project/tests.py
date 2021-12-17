@@ -5,7 +5,7 @@ from mixer.backend.django import mixer
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate, APIClient, APITestCase
 from users.models import User
-from users.views import UserCustomViewSet
+from users.views import UserModelViewSet
 from .views import ProjectParamFilterViewSet
 from .models import Project, ToDo
 
@@ -57,7 +57,7 @@ class TestProjectViewSet(TestCase):
         factory = APIRequestFactory()
         request = factory.post(self.user_url, self.user_data, format='json')
         force_authenticate(request, self.admin)
-        view = UserCustomViewSet.as_view({'post': 'create'})
+        view = UserModelViewSet.as_view({'post': 'create'})
         response = view(request)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

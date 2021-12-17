@@ -16,9 +16,9 @@ class Project(models.Model):
 
 
 class ToDo(models.Model):
-    project = models.ForeignKey(Project, related_name='Проект', on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, related_name='project', on_delete=models.CASCADE)
     text = models.CharField(max_length=256)
     is_active = models.BooleanField(default=True)
     date_create = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, related_name='Пользователь', on_delete=models.PROTECT)
+    user = models.ForeignKey(User, related_name='user', on_delete=models.PROTECT)
