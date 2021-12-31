@@ -2,10 +2,13 @@ import React from 'react';
 import Footer from './components/Footer'
 import './App.css';
 import styles from './App.css';
-import {HashRouter, Route, Switch, Redirect, Link} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect, Link} from "react-router-dom";
 import axios from 'axios'
 import UsersList from './components/User.js'
 import ProjectList from "./components/Project";
+import ProjectItems from "./components/ProjectItems";
+import ProjectForm from "./components/ProjectForm";
+import ToDoForm from "./components/ToDoForm";
 import ToDoList from "./components/ToDo";
 import LoginForm from './components/Auth.js';
 import Cookies from 'universal-cookie';
@@ -40,7 +43,7 @@ class App extends React.Component {
         const cookies = new Cookies()
         cookies.set('curr_user', username)
         this.setState({'curr_user': username})
-        console.log(this.state['curr_user'])
+        // console.log(this.state['curr_user'])
     }
 
     is_authenticated() {
@@ -69,10 +72,10 @@ class App extends React.Component {
             }).catch(error => alert('Неверный логин или пароль'))
     }
 
-    get_headers(version) {
+    get_headers() {
         let headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json; version=${version}'
+            'Content-Type': 'application/json'
+            // `Accept': 'application/json; version=${version}`
         }
         if (this.is_authenticated()) {
             headers['Authorization'] = 'Token ' + this.state.token
@@ -114,22 +117,73 @@ class App extends React.Component {
         this.get_token_from_storage()
     }
 
+    deleteProject(id) {
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/filters/project/${id}`, {headers})
+            .then(response => {
+                // this.setState({projects: this.state.projects.project((item) => project.id !== id)})
+
+                this.load_data()
+            }).catch(error => {
+            console.log(error)
+            this.setState({projects: []})
+        })
+    }
+
+    createProject(name, rep_link, users) {
+        const headers = this.get_headers()
+        const data = {name: name, rep_link: rep_link, users: users}
+        axios.post(`http://127.0.0.1:8000/api/filters/project/`, data, {headers})
+            .then(response => {
+                this.load_data()
+            }).catch(error => {
+            console.log(error)
+            this.setState({projects: []})
+        })
+    }
+
+
+    deleteToDo(id) {
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/filters/todo/${id}`, {headers})
+            .then(response => {
+                this.load_data()
+            }).catch(error => console.log(error))
+    }
+
+    createToDo(project, text, user) {
+        const headers = this.get_headers()
+        const data = {
+            project: project,
+            text: text,
+            user: user
+        }
+        axios.post(`http://127.0.0.1:8000/api/filters/todo/`, data, {headers})
+            .then(response => {
+                this.load_data()
+            }).catch(error => {
+            console.log(error)
+            this.setState({todos: []})
+        })
+    }
+
     render() {
         return (
             <div className="App Site">
+
                 <div className="Site-content">
-                    <div className="App-header">
-                        <HashRouter>
+                    <BrowserRouter>
+                        <div className="App-header">
                             <nav>
                                 <ul>
                                     <li>
                                         <Link to='/'>Users</Link>
                                     </li>
                                     <li>
-                                        <Link to='/projects'>Projects</Link>
+                                        <Link to='/projects/'>Projects</Link>
                                     </li>
                                     <li>
-                                        <Link to='/todos'>ToDo</Link>
+                                        <Link to='/todos/'>ToDo</Link>
                                     </li>
                                     <li>
                                         {this.is_authenticated() ?
@@ -141,29 +195,50 @@ class App extends React.Component {
                                     <text className={"Text-user"}> Current user is: {this.state['curr_user']}</text> :
                                     <text className={"Text-user"}> Current user is: Anonymous User</text>}
                             </nav>
-                        </HashRouter>
-                    </div>
-                    <div className="main">
-                        <content>
-                            <HashRouter>
+                            {/*</BrowserRouter>*/}
+                        </div>
+                        <div className="main">
+                            <content>
+                                {/*<BrowserRouter>*/}
                                 <Switch>
                                     <Route exact path='/'
                                            component={() => <UsersList users={this.state.users}/>}
                                     />
-                                    <Redirect from='/users' to='/'/>
-                                    <Route exact path='/projects'
-                                           component={() => <ProjectList projects={this.state.projects}/>}
+                                    <Redirect from='/users/' to='/'/>
+
+                                    <Route exact path='/todos/'
+                                           component={() => <ToDoList todos={this.state.todos}
+                                                                      deleteToDo={(id) => this.deleteToDo(id)}/>}
                                     />
-                                    <Route exact path='/todos'
-                                           component={() => <ToDoList todos={this.state.todos}/>}
+
+                                    <Route exact path='/todos/create'
+                                           component={() => <ToDoForm users={this.state.users} projects={this.state.projects}
+                                               createToDo={(project, text, user) =>
+                                                   this.createToDo(project, text, user)}
+                                           />}/>
+
+                                    <Route exact path='/projects/'
+                                           component={() => <ProjectList projects={this.state.projects}
+                                                                         deleteProject={(id) => this.deleteProject(id)}/>}
                                     />
+                                    <Route exact path='/projects/create'
+                                           component={() => <ProjectForm users={this.state.users}
+                                               createProject={(name, rep_link, users) => this.createProject(name, rep_link, users)}
+                                           />}/>
+                                    <Route exact path="/projects/:id"
+                                           component={() => <ProjectItems projects={this.state.projects}
+                                                                          users={this.state.users}
+                                                                          todos={this.state.todos}/>}
+                                    />
+
                                     <Route exact path='/login' component={() => <LoginForm
                                         get_token={(username, password) => this.get_token(username, password)}/>}/>
                                     <Route component={NotFound404}/>
                                 </Switch>
-                            </HashRouter>
-                        </content>
-                    </div>
+
+                            </content>
+                        </div>
+                    </BrowserRouter>
                 </div>
                 <footer className={"App-footer"}>
                     <Footer/>)

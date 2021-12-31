@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     "graphene_django",
 
     'rest_framework',
+    'corsheaders',
     'users',
     'project',
-    'corsheaders',
     'django_filters',
     'rest_framework.authtoken',
     'drf_yasg'
@@ -64,6 +64,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'todo.urls'
+# APPEND_SLASH = False
 
 TEMPLATES = [
     {

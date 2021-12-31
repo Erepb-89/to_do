@@ -1,12 +1,11 @@
 import React from 'react'
-import {Link} from "react-router-dom";
 
 
 const UserItem = ({user}) => {
     return (
         <tr>
-            <td><Link to={`user/${user}`}>{user.username}</Link></td>
-            {/*<td>{user.username}</td>*/}
+            <td>{user.id}</td>
+            <td>{user.username}</td>
             <td>{user.first_name}</td>
             <td>{user.last_name}</td>
             <td>{user.email}</td>
@@ -19,6 +18,7 @@ const UsersList = ({users}) => {
         <table>
             <caption className={"CaptionTable"}>Users</caption>
             <thead>
+            <th>Id</th>
             <th>Username</th>
             <th>First name</th>
             <th>Last Name</th>

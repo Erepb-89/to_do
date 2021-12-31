@@ -18,7 +18,8 @@ class TestProjectViewSet(TestCase):
         self.password = '12345678'
 
         self.project_data = {'name': 'New_project_test',
-                             'rep_link': 'http://github.com/new_project_test/'}
+                             'rep_link': 'http://github.com/new_project_test/',
+                             'users': [7]}
         self.project_data_put = {'name': 'Bad_project',
                                  'rep_link': 'http://github.com/bad_project_test/'}
         self.project_url = '/api/filters/project/'
