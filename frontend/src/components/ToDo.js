@@ -7,7 +7,7 @@ const ToDoItem = ({todo, deleteToDo}) => {
         <tr>
             <td>{todo.project}</td>
             <td>{todo.text}</td>
-            <td>{todo.is_active}</td>
+            <td>{todo.is_active===true ? '+' : '-'}</td>
             <td>{todo.date_create}</td>
             <td>{todo.date_update}</td>
             <td>{todo.user}</td>

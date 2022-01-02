@@ -9,6 +9,7 @@ class Command(BaseCommand):
     users = User.objects.all()
     users_id = [user.id for user in users]
     usernames = [user.username for user in users]
+    activity = [True, False]
 
     def handle(self, *args, **options):
         Project.objects.all().delete()
@@ -26,6 +27,6 @@ class Command(BaseCommand):
             for num in range(1, 4):
                 username = random.sample(self.usernames, 1)[0]
                 todo_text = f'zametka_{num}_to_{prj_name}_by_{username}'
-                ToDo.objects.create(text=todo_text, is_active=True,
+                ToDo.objects.create(text=todo_text, is_active=random.choice(self.activity),
                                     project=Project.objects.get(name=prj_name),
                                     user=User.objects.get(username=username))

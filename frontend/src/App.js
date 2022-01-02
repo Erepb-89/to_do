@@ -241,7 +241,7 @@ class App extends React.Component {
                     </BrowserRouter>
                 </div>
                 <footer className={"App-footer"}>
-                    <Footer/>)
+                    <Footer/>
                 </footer>
             </div>
         )

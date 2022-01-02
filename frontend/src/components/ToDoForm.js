@@ -5,14 +5,10 @@ class ToDoForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            project: 411,
-            // projects: [],
+            project: 0,
             text: '',
-            // is_active: true,
-            // date_create: 2021 - 12 - 20,
-            // date_update: 2021 - 12 - 20,
-            user: 7,
-            // users: []
+            // is_active: '',
+            user: 0,
         }
     }
 
@@ -35,11 +31,6 @@ class ToDoForm extends React.Component {
     render() {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
-                {/*<div className="form-group">*/}
-                {/*    <label htmlFor="project">project</label>*/}
-                {/*    <input type="number" className="form-control" name="project" value={this.state.project}*/}
-                {/*           onChange={(event) => this.handleChange(event)}/>*/}
-                {/*</div>*/}
 
                 <div>
                     <label htmlFor="project">project</label>
@@ -67,9 +58,11 @@ class ToDoForm extends React.Component {
                 </div>
 
                 {/*<div className="form-group">*/}
-                {/*    <label htmlFor="is_active">is_active</label>*/}
+                {/*    <label htmlFor="is_active">is active</label>*/}
 
-                {/*    <input type="radio" className="form-control" name="is_active" value={this.state.is_active}*/}
+                {/*    <input type="radio" className="form-control" name="is_active" value="true"*/}
+                {/*           onChange={(event) => this.handleChange(event)}/>*/}
+                {/*    <input type="radio" className="form-control" name="is_active" value="false"*/}
                 {/*           onChange={(event) => this.handleChange(event)}/>*/}
                 {/*</div>*/}
 
