@@ -1,4 +1,5 @@
-.idea
+../todo/.idea
 __pycache__/
-db.sqlite3
+todo/db.sqlite3
 .env
+venv
