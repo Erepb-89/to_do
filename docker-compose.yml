@@ -20,6 +20,7 @@ services:
       python manage.py makemigrations
       && python manage.py migrate
       && python manage.py fill_db
+      && python manage.py fill_projects_todo
       && gunicorn todo.wsgi -b 0.0.0.0:8080
       "
 
