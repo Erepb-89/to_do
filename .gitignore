@@ -1,5 +1,6 @@
-../todo/.idea
+../dz_DRF/.idea
 __pycache__/
-todo/db.sqlite3
+to_do1/db.sqlite3
 .env
 venv
+to_do1/venv
