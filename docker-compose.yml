@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13.5
+    privileged: true
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: erepb
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: db
+  backend:
+    build: to_do1
+    privileged: true
+    ports:
+      - 8080:8080
+    command:
+      bash -c "
+      python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py fill_db
+      && python manage.py fill_projects_todo
+      && gunicorn todo.wsgi -b 0.0.0.0:8080
+      "
+
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:80
+    depends_on:
+      - backend
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:80
+    depends_on:
+      - nginx
+#  adminer:
+#    image: adminer:4.7.8-standalone
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - db
